@@ -13,7 +13,7 @@
         <div class="col">
             <div class="card shadow">
                 <div class="card-body">
-                <table class= "table table-responsive table-bordered table-hovered"
+                <table class= "table table-responsive table-bordered table-hovered">
                     <thead> 
                         <tr>
                             <th>NIK</th>
@@ -57,14 +57,13 @@
                                         <i class="fas fa-pen"></i>
                                     </a>
 
-                                    <form action="/resident/{{ $resident->id }}" method="POST" class="d-inline">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Apakah Anda yakin ingin menghapus data ini?')">
-                                            <i class="fas fa-eraser"></i>
-                                        </button>
-                                    </form>
-                                    </div>
+                                    <button type="button" class="btn btn-sm btn-danger"
+                                        data-toggle="modal"
+                                        data-target="#confirmationDelete"
+                                        data-id="{{ $resident->id }}">
+                                        <i class="fas fa-eraser"></i>
+                                    </button>
+                                </div>
                                 </td>
                             </tr>
                         @endforeach
@@ -76,5 +75,5 @@
             </div>
         </div>
     </div>
-              
+    @include('pages.resident.confirmation-delete')         
 @endsection
