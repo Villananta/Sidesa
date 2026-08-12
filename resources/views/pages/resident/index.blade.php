@@ -53,13 +53,17 @@
                                 <td>{{ $resident->status }}</td>
                                 <td>
                                     <div class="d-flex">
-                                        <a href="/resident/{id}" class="btn btn-sm btn-warning d-inline-block mr-2 ">
-                                            <i class="fas fa-pen"></i>          
-                                        </a>
-                                        <a href="/resident/{id}" class="btn btn-sm btn-danger">
-                                            <i class="fas fa-eraser"></i>          
-                                        </a>
+                                    <a href="/resident/{{ $resident->id }}/edit" class="btn btn-sm btn-warning d-inline-block mr-2">
+                                        <i class="fas fa-pen"></i>
+                                    </a>
 
+                                    <form action="/resident/{{ $resident->id }}" method="POST" class="d-inline">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Apakah Anda yakin ingin menghapus data ini?')">
+                                            <i class="fas fa-eraser"></i>
+                                        </button>
+                                    </form>
                                     </div>
                                 </td>
                             </tr>

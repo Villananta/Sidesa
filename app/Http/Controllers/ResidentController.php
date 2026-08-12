@@ -23,7 +23,7 @@ class ResidentController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'nik' => ['required', 'unique:residents,nik', 'min:10', 'max:25'],
+            'nik' => ['required', 'unique:residents,nik' . $resident->id, 'min:10', 'max:25'],
             'name' => ['required', 'max:100'],
             'gender' => ['required', 'in:male,female'],
             'place_of_birth' => ['required', 'max:50'],
@@ -46,22 +46,22 @@ class ResidentController extends Controller
     $resident = Resident::findOrFail($id);
 
     $validatedData = $request->validate([
-        'nik' => ['required', 'unique:residents,nik', 'min:10', 'max:25'],
-            'name' => ['required', 'max:100'],
-            'gender' => ['required', 'in:male,female'],
-            'place_of_birth' => ['required', 'max:50'],
-            'date_of_birth' => ['required', 'date'],
-            'address' => ['required', 'max:200'],    
-            'religion' => ['required', 'in:islam,katholik,kristen,hindu,budha,khonghucu'],
-            'marital_status' => ['required', 'in:single,married,widower,widow'],
-            'occupation' => ['nullable', 'max:100'],
-            'phone' => ['required', 'max:15'],
-            'status' => ['required', 'in:aktif,pindahan,meninggal']
+        'nik' => ['required', 'unique:residents,nik,' . $resident->id, 'min:10', 'max:25'],
+        'name' => ['required', 'max:100'],
+        'gender' => ['required', 'in:male,female'],
+        'place_of_birth' => ['required', 'max:50'],
+        'date_of_birth' => ['required', 'date'],
+        'address' => ['required', 'max:200'],
+        'religion' => ['required', 'in:islam,katholik,kristen,hindu,budha,khonghucu'],
+        'marital_status' => ['required', 'in:single,married,widower,widow'],
+        'occupation' => ['nullable', 'max:100'],
+        'phone' => ['required', 'max:15'],
+        'status' => ['required', 'in:aktif,pindahan,meninggal'],
     ]);
 
     $resident->update($validatedData);
 
-    return redirect('/resident')->with('success', 'Resident updated successfully.');
+    return redirect()->route('resident.index')->with('success', 'Resident updated successfully.');
 }
 
     public function edit($id)
