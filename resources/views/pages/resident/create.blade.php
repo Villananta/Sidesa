@@ -6,9 +6,6 @@
         <h1 class="h3 mb-0 text-gray-800">Tambah Penduduk</h1>
     </div>
 
-    <!-- @if($errors->any())
-        @dd($errors->all())
-    @endif -->
 
     <div class="row">
         <div class="col">
@@ -20,11 +17,20 @@
                     <div class="card-body">
                         <div class="form-group mb-3">
                             <label for="nik">NIK</label>
-                            <input type="number" inputmode="numeric" name="nik" id="nik" class="form-control">
+                            <input type="number" inputmode="numeric" name="nik" id="nik" class="form-control @error('nik') is-invalid @enderror"
+                                value="{{ old('nik') }}">
+                            @error('nik')
+                                <span class="invalid-feedback d-block">{{ $message }}</span>
+                            @enderror
                         </div>
                         <div class="form-group mb-3">
-                            <label for="name">Nama Lengkap</label>
-                            <input type="text" name="name" id="name" class="form-control">
+                        <label for="name">Nama Lengkap</label>
+                        <input type="text" name="name" id="name"
+                            class="form-control @error('name') is-invalid @enderror"
+                            value="{{ old('name') }}">
+                        @error('name')
+                            <span class="invalid-feedback d-block">{{ $message }}</span>
+                        @enderror
                         </div>
                         <div class="form-group mb-3">
                             <label for="gender">Jenis Kelamin</label>
@@ -35,16 +41,25 @@
                         </div>
                         <div class="form-group mb-3">
                             <label for="date_of_birth"> Tanggal Lahir</label>
-                            <input type="date" name="date_of_birth" id="date_of_birth" class="form-control">
+                            <input type="date" name="date_of_birth" id="date_of_birth" class="form-control @error ('date_of_birth') is-invalid @enderror" value="{{ old('data_of_birth') }}">
+                            @error('date_of_birth')
+                                <span class="invalid-feedback d-inblock">{{ $message }}</span>
+                            @enderror
                         </div>
                         <div class="form-group mb-3">
                             <label for="place_of_birth"> Tempat Lahir</label>
-                            <input type="text" name="place_of_birth" id="place_of_birth" class="form-control">
+                            <input type="text" name="place_of_birth" id="place_of_birth" class="form-control @error ('place_of_birth') is-invalid @enderror" value="{{ old('place_of_birth') }}">
+                            @error('place_of_birth')
+                                <span class="invalid-feedback d-inblock">{{ $message }}</span>
+                            @enderror
                         </div>
                         <div class="form-group mb-3">
                             <label for="address"> Alamat
                             </label>
-                            <textarea name="address" id="address" cols="30" row="10" class="form-control"></textarea>
+                            <textarea name="address" id="address" cols="30" row="10" class="form-control @error ('address') is-invalid @enderror" value="{{ old('address') }}"> </textarea>
+                            @error('address')
+                                <span class="invalid-feedback d-inblock">{{ $message }}</span>
+                            @enderror
                         </div>
                         <div class="form-group mb-3">
                         <label for="religion">Agama</label>
@@ -68,11 +83,17 @@
                         </div>
                         <div class="form-group mb-3">
                             <label for="occupation"> Pekerjaan</label>
-                            <input type="text" name="occupation" id="occupation" class="form-control">
+                            <input type="text" name="occupation" id="occupation" class="form-control @error ('occupation') is-invalid @enderror" value="{{ old('occupation') }}">
+                            @error('occupation')
+                                <span class="invalid-feedback d-inblock">{{ $message }}</span>
+                            @enderror
                         </div>
                         <div class="form-group mb-3">
                             <label for="phone"> No. Telepon</label>
-                            <input type="text" inputmode="numeric" name="phone" id="phone" class="form-control">
+                            <input type="text" inputmode="numeric" name="phone" id="phone" class="form-control @error ('phone') is-invalid @enderror" value="{{ old('phone') }}">
+                            @error('phone')
+                                <span class="invalid-feedback d-inblock">{{ $message }}</span>
+                            @enderror
                         </div>
                         <div class="form-group mb-3">
                             <label for="status">Status</label>
