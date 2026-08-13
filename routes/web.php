@@ -7,6 +7,7 @@ use App\Http\Controllers\ResidentController;
 
 Route::get('/', [AuthController::class, 'login']);
 Route::post('/login', [AuthController::class,'authenticate']);
+Route::post('/logout', [AuthController::class,'logout']);
  
 
 Route::get('/dashboard', function () {
