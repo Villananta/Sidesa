@@ -23,7 +23,7 @@ class ResidentController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'nik' => ['required', 'unique:residents,nik' . $resident->id, 'min:10', 'max:25'],
+            'nik' => ['required', 'unique:residents,nik','min:10','max:25'],
             'name' => ['required', 'max:100'],
             'gender' => ['required', 'in:male,female'],
             'place_of_birth' => ['required', 'max:50'],
