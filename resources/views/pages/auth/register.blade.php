@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Login SiDesa</title>
+    <title>Register Akun SiDesa</title>
 
     <!-- Custom fonts for this template-->
     <link href="{{ asset('template/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
@@ -39,14 +39,19 @@
                             <div class="col-lg-6">
                                 <div class="p-5">
                                     <div class="text-center">
-                                        <h1 class="h4 text-gray-900 mb-4">Welcome Back!</h1>
+                                        <h1 class="h4 text-gray-900 mb-4">Registrasi!</h1>
                                     </div>
-                                    <form class="user" action="login" method="post">
+                                    <form class="user" action="/register" method="post">
                                         @csrf
                                         @method('POST')
                                         <div class="form-group">
+                                            <input type="text" class="form-control form-control-user"
+                                                id="InputName" name="name" aria-describedby="emailHelp"
+                                                placeholder="Nama Lengkap...">
+                                        </div>
+                                        <div class="form-group">
                                             <input type="email" class="form-control form-control-user"
-                                                id="InputEmail" name="email" aria-describedby="emailHelp"
+                                                id="exampleInputEmail" name="email" aria-describedby="emailHelp"
                                                 placeholder="Masukan emaill...">
                                         </div>
                                         <div class="form-group">
@@ -55,14 +60,14 @@
                                         </div>
                                         
                                         <button type="submit" class="btn btn-primary btn-user btn-block">
-                                            Login
+                                            Buat
                                         </button>
                                         <hr>
                                     <div class="text-center">
                                         <a class="small" href="forgot-password.html">Forgot Password?</a>
                                     </div>
                                     <div class="text-center">
-                                        <a class="small" href="/register">Create an Account!</a>
+                                        <a class="small" href="/">Login</a>
                                     </div>
                                 </div>
                             </div>

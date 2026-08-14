@@ -1,4 +1,4 @@
- <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+<ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
             <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
@@ -18,20 +18,23 @@
                     <span>Dashboard</span></a>
             </li>
 
-            <!-- Divider -->
+            {{-- <!-- Divider -->
             <hr class="sidebar-divider">
 
             <!-- Heading -->
             <div class="sidebar-heading">
                 Manajemen Data
-            </div>
+            </div> --}}
 
             <!-- Nav Item - Tables -->
-            <li class="nav-item {{ request()->is('resident*') ? 'active' : ''}} " >
-                <a class="nav-link" href="/resident">
-                    <i class="fas fa-fw fa-table"></i>
-                    <span>Penduduk</span></a>
+            @if (Auth::check() && Auth::user()->role->name === 'Admin')
+            <!-- Nav Item - Tables (hanya untuk Admin) -->
+             <li class="nav-item {{ request()->is('resident*') ? 'active' : ''}}">
+            <a class="nav-link" href="/resident">
+                <i class="fas fa-fw fa-table"></i>
+                <span>Penduduk</span></a>
             </li>
+             @endif
 
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
