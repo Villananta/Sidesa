@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AccountController;
 use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ResidentController;
@@ -21,3 +22,6 @@ Route::post('/resident', [ResidentController::class, 'store'])->name('resident.s
 Route::get('/resident/{id}/edit', [ResidentController::class, 'edit'])->name('resident.edit');
 Route::put('/resident/{id}', [ResidentController::class, 'update'])->name('resident.update');
 Route::delete('/resident/{id}', [ResidentController::class, 'destroy'])->name('resident.delete');
+Route::get('/account-request', [AccountController::class, 'account_request_view'])->name('account.request');
+Route::post('/account-request/{id}/approve', [AccountController::class, 'approve'])->name('account.approve');
+Route::post('/account-request/{id}/reject', [AccountController::class, 'reject'])->name('account.reject');

@@ -18,14 +18,7 @@
                     <span>Dashboard</span></a>
             </li>
 
-            {{-- <!-- Divider -->
-            <hr class="sidebar-divider">
-
-            <!-- Heading -->
-            <div class="sidebar-heading">
-                Manajemen Data
-            </div> --}}
-
+       
             <!-- Nav Item - Tables -->
             @if (Auth::check() && Auth::user()->role->name === 'Admin')
             <!-- Nav Item - Tables (hanya untuk Admin) -->
@@ -33,6 +26,9 @@
             <a class="nav-link" href="/resident">
                 <i class="fas fa-fw fa-table"></i>
                 <span>Penduduk</span></a>
+            <a class="nav-link" href="/account-request">
+                <i class="fas fa-fw fa-user"></i>
+                <span>Persetujuan Akun</span></a>
             </li>
              @endif
 
