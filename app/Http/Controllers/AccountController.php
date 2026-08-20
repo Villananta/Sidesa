@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class AccountController extends Controller
 {
@@ -81,7 +82,25 @@ public function updateProfile(Request $request, $id)
     return redirect()->route('profile')->with('success', 'Profil berhasil diperbarui.');
 }
 
-public function change_password(){
+public function change_password_view(){
     return view('pages.profile.change-password');
+}
+public function change_password(Request $request, $userid)
+{
+    $user = User::findOrFail($userid);
+
+    $validated = $request->validate([
+        'old_password' => ['required'],
+        'new_password' => ['required', 'min:8'],
+    ]);
+
+    if (!Hash::check($validated['old_password'], $user->password)) {
+        return back()->with('error', 'Password lama salah.');
+    }
+
+    $user->password = Hash::make($validated['new_password']);
+    $user->save();
+
+    return redirect()->route('profile')->with('success', 'Password berhasil diubah.');
 }
 }

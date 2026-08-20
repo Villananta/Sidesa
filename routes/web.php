@@ -26,11 +26,9 @@ Route::get('/account-request', [AccountController::class, 'account_request_view'
 Route::post('/account-request/{id}/approve', [AccountController::class, 'approve'])->name('account.approve')->middleware('role:Admin');
 Route::post('/account-request/{id}/reject', [AccountController::class, 'reject'])->name('account.reject')->middleware('role:Admin');
 Route::get('/account-list', [AccountController::class,'account_list_view'])->name('account.list')->middleware('role:Admin');
-Route::patch('/account-list/{id}/activate', [AccountController::class, 'activate'])
-    ->name('account.activate')->middleware('role:Admin');
-Route::patch('/account-list/{id}/deactivate', [AccountController::class, 'deactivate'])
-    ->name('account.deactivate')->middleware('role:Admin');
-
+Route::patch('/account-list/{id}/activate', [AccountController::class, 'activate'])->name('account.activate')->middleware('role:Admin');
+Route::patch('/account-list/{id}/deactivate', [AccountController::class, 'deactivate'])->name('account.deactivate')->middleware('role:Admin');
 Route::get('/profile', [AccountController::class, 'profile_view'])->name('profile')->middleware('role:Admin,User');
 Route::get('/change-password', [AccountController::class, 'change_password_view'])->middleware('role:Admin,User');
+Route::post('/change-password/{id}', [AccountController::class, 'change_password'])->middleware('role:Admin,User');
 Route::put('/profile/{id}', [AccountController::class, 'updateProfile'])->name('profile.update')->middleware('role:Admin,User');
