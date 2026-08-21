@@ -56,6 +56,7 @@ public function deactivate($id)
 public function account_list_view()
 {
      $users = User::where('role_id', '2')->where( 'status', '!=', 'submitted')->get();
+     $residents = res
         return view("pages.account-list.index",
         ["users"=>$users,
         ]);
