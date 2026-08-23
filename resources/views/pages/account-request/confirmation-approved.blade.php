@@ -13,6 +13,11 @@
                 <div class="modal-body">
                     <span id="confirmationActionMessage">Apakah Anda yakin?</span>
                 </div>
+                <div class="form-group mt=3">
+                    <label for="user_id">
+                        <input type="user" name="" id="">
+                    </label>
+                </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
                     <button type="submit" id="confirmationActionSubmit" class="btn btn-primary">Ya, Lanjutkan</button>

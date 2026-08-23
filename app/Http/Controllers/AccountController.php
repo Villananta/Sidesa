@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Resident;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
@@ -11,8 +12,10 @@ class AccountController extends Controller
     public function account_request_view(){
 
         $users = User::whereIn('status', ['submitted', 'rejected'])->get();
+        $residents = Resident::whereNull('user_id', 'null')->get();
         return view("pages.account-request.index",
         ["users"=>$users,
+        "residents"=>$residents
         ]);
         
     }
@@ -56,7 +59,6 @@ public function deactivate($id)
 public function account_list_view()
 {
      $users = User::where('role_id', '2')->where( 'status', '!=', 'submitted')->get();
-     $residents = res
         return view("pages.account-list.index",
         ["users"=>$users,
         ]);
