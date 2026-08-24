@@ -28,6 +28,7 @@ Route::post('/account-request/{id}/reject', [AccountController::class, 'reject']
 Route::get('/account-list', [AccountController::class,'account_list_view'])->name('account.list')->middleware('role:Admin');
 Route::patch('/account-list/{id}/activate', [AccountController::class, 'activate'])->name('account.activate')->middleware('role:Admin');
 Route::patch('/account-list/{id}/deactivate', [AccountController::class, 'deactivate'])->name('account.deactivate')->middleware('role:Admin');
+Route::patch('/account-list/{id}/link-resident', [AccountController::class, 'linkResident'])->name('account.link-resident')->middleware('role:Admin');
 Route::get('/profile', [AccountController::class, 'profile_view'])->name('profile')->middleware('role:Admin,User');
 Route::get('/change-password', [AccountController::class, 'change_password_view'])->middleware('role:Admin,User');
 Route::post('/change-password/{id}', [AccountController::class, 'change_password'])->middleware('role:Admin,User');

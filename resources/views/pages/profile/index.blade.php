@@ -22,6 +22,7 @@
 
             <form action="/profile/{{ auth()->user()->id }}" method="post">
                 @csrf
+                @method('PUT')
             
                 <div class="card">
                     <div class="card-body">

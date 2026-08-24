@@ -12,7 +12,7 @@ class AccountController extends Controller
     public function account_request_view(){
 
         $users = User::whereIn('status', ['submitted', 'rejected'])->get();
-        $residents = Resident::whereNull('user_id', 'null')->get();
+        $residents = Resident::whereNull('user_id')->get();
         return view("pages.account-request.index",
         ["users"=>$users,
         "residents"=>$residents
@@ -20,11 +20,22 @@ class AccountController extends Controller
         
     }
 
-    public function approve($id)
-{
+  public function approve(Request $request, $id)
+{   
     $user = User::findOrFail($id);
+
+    $validated = $request->validate([
+        'resident_id' => ['nullable', 'exists:residents,id'],
+    ]);
+
     $user->status = 'approved';
     $user->save();
+
+    if (!empty($validated['resident_id'])) {
+        $resident = Resident::findOrFail($validated['resident_id']);
+        $resident->user_id = $user->id;
+        $resident->save();
+    }
 
     return redirect()->route('account.request')->with('success', 'Akun berhasil disetujui.');
 }

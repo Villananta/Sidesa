@@ -9,7 +9,7 @@
                 class="fas fa-plus fa-sm text-white-50"></i> Tambah Data</a>
     </div>
 
-    <div class="row">
+    <div class="row d-flex justify-content-center text-center">
         <div class="col">
             <div class="card shadow">
                 <div class="card-body">
@@ -57,12 +57,21 @@
                                         <i class="fas fa-pen"></i>
                                     </a>
 
-                                    <button type="button" class="btn btn-sm btn-danger"
+                                    <button type="button" class="btn btn-sm btn-danger mr-2"
                                         data-toggle="modal"
                                         data-target="#confirmationDelete"
                                         data-id="{{ $resident->id }}">
                                         <i class="fas fa-eraser"></i>
                                     </button>
+                                    @if ($resident->user)
+                                        <button type="button" class="btn btn-sm btn-info"
+                                            data-toggle="modal"
+                                            data-target="#detailAkunModal"
+                                            data-name="{{ $resident->user->name }}"
+                                            data-email="{{ $resident->user->email }}">
+                                            Lihat Akun
+                                        </button>
+                                    @endif
                                 </div>
                                 </td>
                             </tr>
@@ -75,5 +84,6 @@
             </div>
         </div>
     </div>
+    @include('pages.resident.detail-akun')
     @include('pages.resident.confirmation-delete')         
 @endsection

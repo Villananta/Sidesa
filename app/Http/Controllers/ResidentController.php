@@ -8,13 +8,12 @@ use App\Models\Resident;
 
 class ResidentController extends Controller
 {
-    public function index()
-    {
-        $residents = Resident::all();
-        $residentCount = $residents->count();
-        return view('pages.resident.index', ['residents' => $residents, 'residentCount' => $residentCount]);
-    }
-
+   public function index()
+{
+    $residents = Resident::with('user')->get();
+    $residentCount = $residents->count();
+    return view('pages.resident.index', ['residents' => $residents, 'residentCount' => $residentCount]);
+}
     public function create()
     {
         return view('pages.resident.create');
