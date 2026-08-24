@@ -31,6 +31,7 @@
                             <th>Nama</th>
                             <th>Email</th>
                             <th>status</th>
+                            <th>Data Penduduk</th>
                             <th>Aksi</th>
                             
                         </tr>
@@ -47,7 +48,7 @@
                     <tbody>
                         @foreach ($users as $user)
                             <tr>
-                                <td>{{ $loop->iteration }}</td>
+                                <td>{{ $loop->iteration + $users-> firstitem() - 1 }}</td>
                                 <td>{{ $user->name }}</td>
                                 <td>{{ $user->email }}</td>
                                 <td>
@@ -57,11 +58,17 @@
                                         <span class="badge badge-danger">Tidak Aktif</span>
                                     @endif
                                 </td>
-                                
+                                <td>
+                                    @if ($user->resident)
+                                        {{ $user->resident->name }} ({{ $user->resident->nik }})
+                                    @else
+                                        <span class="text-muted">Belum terkait</span>
+                                    @endif
+                                </td>
                                 <td>
                                     <div class="d-flex">
                                         @if ($user->status == 'approved')
-                                            <button type="button" class="btn btn-sm btn-danger"
+                                            <button type="button" class="btn btn-sm btn-danger mr-2"
                                                 data-toggle="modal"
                                                 data-target="#confirmationStatus"
                                                 data-id="{{ $user->id }}"
@@ -79,6 +86,14 @@
                                                 <i class="fas fa-check"></i> Aktifkan Akun
                                             </button>
                                         @endif
+                                        <button type="button" class="btn btn-sm btn-info"
+                                            data-toggle="modal"
+                                            data-target="#linkResidentModal"
+                                            data-id="{{ $user->id }}"
+                                            data-name="{{ $user->name }}"
+                                            data-resident-id="{{ $user->resident->id ?? '' }}">
+                                            <i class="fas fa-link"></i> Edit Keterkaitan
+                                        </button>
                                     </div>
                                 </td>
                             </tr>
@@ -87,9 +102,15 @@
                     @endif
 
                 </table>   
+                @if ($user-> lastPage() > 1)
+                <div class="card-footer">
+                    {{ $users ->links('pagination::bootstrap-5') }}
+                </div>
+                @endif
             </div> 
             </div>
         </div>
     </div>
+    @include('pages.account-list.link-resident')
     @include('pages.account-list.confirmation-status')    
 @endsection

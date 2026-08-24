@@ -51,10 +51,10 @@
                                         </button>
                                         <hr>
                                         <div class="text-center">
-                                            <a class="small" href="forgot-password.html">Forgot Password?</a>
+                                            <a class="small" href="forgot-password.html">Lupa Password?</a>
                                         </div>
                                         <div class="text-center">
-                                            <a class="small" href="/register">Create an Account!</a>
+                                            <a class="small" href="/register">Buat Akun Baru!</a>
                                         </div>
                                     </div>
                                 </div>

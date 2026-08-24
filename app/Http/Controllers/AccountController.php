@@ -11,7 +11,7 @@ class AccountController extends Controller
 {
     public function account_request_view(){
 
-        $users = User::whereIn('status', ['submitted', 'rejected'])->get();
+        $users = User::whereIn('status', ['submitted', 'rejected'])->paginate(1);
         $residents = Resident::whereNull('user_id')->get();
         return view("pages.account-request.index",
         ["users"=>$users,
@@ -19,6 +19,8 @@ class AccountController extends Controller
         ]);
         
     }
+
+    
 
   public function approve(Request $request, $id)
 {   
@@ -69,10 +71,12 @@ public function deactivate($id)
 
 public function account_list_view()
 {
-     $users = User::where('role_id', '2')->where( 'status', '!=', 'submitted')->get();
-        return view("pages.account-list.index",
-        ["users"=>$users,
-        ]);
+    $users = User::with('resident')->where('role_id', '2')->where('status', '!=', 'submitted')->paginate(10);
+    $residents = Resident::whereNull('user_id')->get();
+    return view("pages.account-list.index", [
+        "users" => $users,
+        "residents" => $residents,
+    ]);
 }
 
 public function profile_view(){
@@ -116,5 +120,24 @@ public function change_password(Request $request, $userid)
     $user->save();
 
     return redirect()->route('profile')->with('success', 'Password berhasil diubah.');
+}
+
+public function linkResident(Request $request, $id)
+{
+    $user = User::findOrFail($id);
+
+    $validated = $request->validate([
+        'resident_id' => ['nullable', 'exists:residents,id'],
+    ]);
+
+    Resident::where('user_id', $user->id)->update(['user_id' => null]);
+
+    if (!empty($validated['resident_id'])) {
+        $resident = Resident::findOrFail($validated['resident_id']);
+        $resident->user_id = $user->id;
+        $resident->save();
+    }
+
+    return back()->with('success', 'Keterkaitan akun berhasil diperbarui.');
 }
 }

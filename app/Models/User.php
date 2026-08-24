@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use App\Models\Role;
+use App\Models\Resident;
 
 #[Fillable(['name', 'email', 'password'])]
 #[Hidden(['password', 'remember_token'])]
@@ -34,5 +35,10 @@ class User extends Authenticatable
     public function role()
     {
     return $this->belongsTo(Role::class);
+    }
+
+        public function resident()
+    {
+        return $this->hasOne(Resident::class, 'user_id');
     }
 }
