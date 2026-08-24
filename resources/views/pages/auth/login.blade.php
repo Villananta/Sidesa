@@ -33,7 +33,7 @@
                                     <div class="text-center">
                                         <h1 class="h4 text-gray-900 mb-4">Welcome Back!</h1>
                                     </div>
-                                    <form class="user" action="login" method="post">
+                                    <form class="user" action="login" method="post" onsubmit="const submitBtn = document.getElementById('submitBtn'); submitBtn.disable = true; submitBtn.textContent = 'Loading..'">
                                         @csrf
                                         @method('POST')
                                         <div class="form-group">
@@ -46,7 +46,7 @@
                                                 id="exampleInputPassword" name="password" placeholder="Password">
                                         </div>
 
-                                        <button type="submit" class="btn btn-primary btn-user btn-block">
+                                        <button id="submitBtn" type="submit" class="btn btn-primary btn-user btn-block">
                                             Login
                                         </button>
                                         <hr>
