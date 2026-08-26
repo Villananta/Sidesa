@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ComplaintController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ResidentController;
 
@@ -33,3 +34,8 @@ Route::get('/profile', [AccountController::class, 'profile_view'])->name('profil
 Route::get('/change-password', [AccountController::class, 'change_password_view'])->middleware('role:Admin,User');
 Route::post('/change-password/{id}', [AccountController::class, 'change_password'])->middleware('role:Admin,User');
 Route::put('/profile/{id}', [AccountController::class, 'updateProfile'])->name('profile.update')->middleware('role:Admin,User');
+
+Route::get('/complaint', [ComplaintController::class, 'index'])->name('complaint.index')->middleware('role:User');
+Route::post('/complaint', [ComplaintController::class, 'store'])->name('complaint.store')->middleware('role:User');
+Route::put('/complaint/{id}', [ComplaintController::class, 'update'])->name('complaint.update')->middleware('role:User');
+Route::delete('/complaint/{id}', [ComplaintController::class, 'destroy'])->name('complaint.destroy')->middleware('role:User');

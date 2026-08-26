@@ -102,7 +102,7 @@
                     @endif
 
                 </table>   
-                @if ($user-> lastPage() > 1)
+                @if ($users-> lastPage() > 1)
                 <div class="card-footer">
                     {{ $users ->links('pagination::bootstrap-5') }}
                 </div>

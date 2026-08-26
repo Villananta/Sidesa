@@ -14,10 +14,10 @@ return new class extends Migration
     {
         Schema::create('complaints', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('residents_id');
+            $table->unsignedBigInteger('resident_id');
             $table->string('title');
             $table->text('content');
-            $table->enum('status', ['confirmed','processing','completed'])->default('Confirmed');
+            $table->enum('status', ['confirmed','processing','completed'])->default('confirmed');
             $table->string('photo_prove')->nullable();
             $table->timestamp('complaint_date')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->timestamps();
