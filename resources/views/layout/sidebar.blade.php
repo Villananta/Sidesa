@@ -32,10 +32,10 @@
             <a class="nav-link" href="/account-request">
                 <i class="fas fa-fw fa-user"></i>
                 <span>Permintaan Akun</span></a>
+            <a class="nav-link" href="/complaint">
+                <i class="fas fa-fw fa-bullhorn"></i>
+                <span>Pengaduan</span></a>
             </li>
-
-            <li class="nav-item2" {{ request()->is('Complaint*')  }}></li>
-
             @elseif (Auth::check() && Auth::user()->role->name === 'User')
             <li class="nav-item {{ request()->is('complaint*') ? 'active' : ''}}">
                 <a class="nav-link" href="/complaint">

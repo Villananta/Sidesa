@@ -76,7 +76,9 @@
                                             <td>{{ $complaint->content }}</td>
                                             <td>{{ \Carbon\Carbon::parse($complaint->complaint_date)->format('d-m-Y') }}</td>
                                             <td>
-                                                @if ($complaint->status == 'confirmed')
+                                                @if ($complaint->status == 'rejected')
+                                                    <span class="badge badge-danger">Ditolak</span>
+                                                @elseif ($complaint->status == 'confirmed')
                                                     <span class="badge badge-secondary">Diterima</span>
                                                 @elseif ($complaint->status == 'processing')
                                                     <span class="badge badge-warning">Diproses</span>
@@ -145,7 +147,9 @@
                                             <td>{{ $complaint->content }}</td>
                                             <td>{{ \Carbon\Carbon::parse($complaint->complaint_date)->format('d-m-Y') }}</td>
                                             <td>
-                                                @if ($complaint->status == 'confirmed')
+                                                @if ($complaint->status == 'rejected')
+                                                    <span class="badge badge-danger">Ditolak</span>
+                                                @elseif ($complaint->status == 'confirmed')
                                                     <span class="badge badge-secondary">Diterima</span>
                                                 @elseif ($complaint->status == 'processing')
                                                     <span class="badge badge-warning">Diproses</span>
@@ -333,6 +337,7 @@
                             <div class="form-group mb-3">
                                 <label for="manage_status">Status</label>
                                 <select name="status" id="manage_status" class="form-control">
+                                    <option value="rejected">Ditolak</option>
                                     <option value="confirmed">Diterima</option>
                                     <option value="processing">Diproses</option>
                                     <option value="completed">Selesai</option>
