@@ -3,21 +3,44 @@
 namespace App\Http\Controllers;
 
 use App\Models\Complaint;
+use App\Models\Role;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
 class ComplaintController extends Controller
 {
     public function index(){
-        $resident = auth()->user()->resident;
 
+        $user = auth()->user();
+        
+        if($user->role->name == 'Admin'){
+            $complaint = Complaint::with('resident')->latest('complaint_date')->paginate(10);
+
+            return view('pages.complaint.index', ['complaints' => $complaint]);
+
+        }
+
+        $resident = $user->resident;
         $complaint = $resident
-            ? Complaint::where("resident_id",$resident->id)->latest('complaint_date')->paginate(10)
-            : null;
-
-            return view('pages.complaint.index', ['complaints'=> $complaint]);
+        ? complaint::where("resident_id", $resident->id)->latest('complaint_date')->paginate(10) : null;
+        return view('pages.complaint.index', ['complaints' => $complaint]);
     }
 
+    public function update_status(Request $request, $id){
+        $user = auth()->user();
+        if($user->role->name !== 'Admin'){
+            abort(403);
+        }
+        $complaint = Complaint::find($id);
+        $validate = $request->validate([
+            'status' => ['required','in:confirmed,processing,completed'],
+            'response'=> ['nullable','min:10'],
+        ]);
+        $complaint->update($validate);
+
+        return redirect()->route('complaint.index')->with('success','Pengaduan berhasil diperbarui.');
+    }
+    
     public function store(Request $request){
     $resident = auth()->user()->resident;
 
@@ -26,7 +49,7 @@ class ComplaintController extends Controller
     }
 
     $validated = $request->validate([
-        'title' => ['required','min:10'],
+        'title' => ['required'],
         'content' => ['required'],
         'photo_prove' => ['nullable', 'image', 'max:2048'], 
     ]);

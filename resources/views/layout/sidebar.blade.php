@@ -34,6 +34,8 @@
                 <span>Permintaan Akun</span></a>
             </li>
 
+            <li class="nav-item2" {{ request()->is('Complaint*')  }}></li>
+
             @elseif (Auth::check() && Auth::user()->role->name === 'User')
             <li class="nav-item {{ request()->is('complaint*') ? 'active' : ''}}">
                 <a class="nav-link" href="/complaint">
