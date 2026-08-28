@@ -346,6 +346,9 @@
                             <div class="form-group mb-3">
                                 <label for="manage_response">Tanggapan</label>
                                 <textarea name="response" id="manage_response" rows="4" class="form-control"></textarea>
+                                @error('response')
+                                    <span class="text-danger d-block mt-1">{{ $message }}</span>
+                                @enderror
                             </div>
                         </div>
                         <div class="modal-footer">

@@ -34,7 +34,7 @@ class ComplaintController extends Controller
         $complaint = Complaint::find($id);
         $validate = $request->validate([
             'status' => ['required','in:confirmed,processing,completed,rejected'],
-            'response'=> ['nullable','min:10'],
+            'response'=> ['nullable'],
         ]);
         $complaint->update($validate);
 
