@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Complaint;
 use App\Models\Role;
+use App\Models\User;
 use App\Notifications\ComplaintStatusChanged;
-use Illuminate\Foundation\Auth\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -28,20 +28,30 @@ class ComplaintController extends Controller
         return view('pages.complaint.index', ['complaints' => $complaint]);
     }
 
-    public function update_status(Request $request, $id){
-        $user = auth()->user();
-        if($user->role->name !== 'Admin'){
-            abort(403);
-        }
-        $complaint = Complaint::find($id);
-        $validate = $request->validate([
-            'status' => ['required','in:confirmed,processing,completed,rejected'],
-            'response'=> ['nullable'],
-        ]);
-        $complaint->update($validate);
-
-        return redirect()->route('complaint.index')->with('success','Pengaduan berhasil diperbarui.');
+    public function update_status(Request $request, $id)
+{
+    $user = auth()->user();
+    if ($user->role->name !== 'Admin') {
+        abort(403);
     }
+
+    $complaint = Complaint::findOrFail($id);
+    $oldStatus = $complaint->status;
+
+    $validate = $request->validate([
+        'status' => ['required', 'in:confirmed,processing,completed,rejected'],
+        'response' => ['nullable'],
+    ]);
+
+    $complaint->update($validate);
+    $newStatus = $complaint->status;
+
+    if ($complaint->resident && $complaint->resident->user) {
+        $complaint->resident->user->notify(new ComplaintStatusChanged($complaint, $oldStatus, $newStatus));
+    }
+
+    return redirect()->route('complaint.index')->with('success', 'Pengaduan berhasil diperbarui.');
+}
     
     public function store(Request $request){
     $resident = auth()->user()->resident;
@@ -94,9 +104,6 @@ class ComplaintController extends Controller
         }
 
         $complaint->update($validated);
-        $oldstatus = $complaint ->status;
-        $newstatus = $request->input('status');
-        User:: where('id', $complaint->resident->user_id)->firstOrFail()->notify(new ComplaintStatusChanged($complaint,$oldstatus,$newstatus));
         return redirect()->route('complaint.index')->with('success', 'Pengaduan berhasil diperbarui.');
     }
 

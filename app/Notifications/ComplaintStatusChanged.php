@@ -16,8 +16,8 @@ class ComplaintStatusChanged extends Notification
      */
     public function __construct(
         protected $complaint,
-        protected $oldstatus,
-        protected $newstatus
+        protected $oldStatus,
+        protected $newStatus
     )
     {
         //
@@ -54,9 +54,9 @@ class ComplaintStatusChanged extends Notification
         return [
             'complaint_id' => $this->complaint->id,
             'title' => $this->complaint->title,
-            'old_status' => $this->oldstatus,
-            'new_status' => $this->newstatus,
-            'message' => "Status aduan '$this->complaint->title' berubah dari '$this->oldstatus' menjadi '$this->newstatus'.",
+            'old_status' => $this->oldStatus,
+            'new_status' => $this->newStatus,
+            'message' => "Status aduan '$this->complaint->title' berubah dari '$this->oldStatus' menjadi '$this->newStatus'.",
         ];
     }
 }
