@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Complaint;
 use App\Models\Role;
+use App\Notifications\ComplaintStatusChanged;
+use Illuminate\Foundation\Auth\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -61,6 +63,7 @@ class ComplaintController extends Controller
     $validated['resident_id'] = $resident->id;
 
     Complaint::create($validated);
+    
 
     return redirect()->route('complaint.index')->with('success', 'Pengaduan berhasil dikirim.');
 }
@@ -91,7 +94,9 @@ class ComplaintController extends Controller
         }
 
         $complaint->update($validated);
-
+        $oldstatus = $complaint ->status;
+        $newstatus = $request->input('status');
+        User:: where('id', $complaint->resident->user_id)->firstOrFail()->notify(new ComplaintStatusChanged($complaint,$oldstatus,$newstatus));
         return redirect()->route('complaint.index')->with('success', 'Pengaduan berhasil diperbarui.');
     }
 
