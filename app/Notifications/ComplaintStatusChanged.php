@@ -56,7 +56,7 @@ class ComplaintStatusChanged extends Notification
             'title' => $this->complaint->title,
             'old_status' => $this->oldStatus,
             'new_status' => $this->newStatus,
-            'message' => "Status aduan '$this->complaint->title' berubah dari '$this->oldStatus' menjadi '$this->newStatus'.",
+            'message' => "Status aduan '{$this->complaint->title}' berubah dari '{$this->oldStatus}' menjadi '{$this->newStatus}'.",
         ];
     }
 }
