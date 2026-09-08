@@ -62,9 +62,9 @@
                                 <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button"
                                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <i class="fas fa-bell fa-fw"></i>
-                                    @if ($unreadCount > 0)
-                                        <span class="badge badge-danger badge-counter" id="alertsBadge">{{ $unreadCount }}</span>
-                                    @endif
+                                @if ($unreadCount > 0)
+                                    <span class="badge badge-danger badge-counter" id="alertsBadge">{{ $unreadCount }}</span>
+                                @endif
                                 </a>
                                 <!-- Dropdown - Alerts -->
                                 <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -233,25 +233,25 @@
                     
                 </nav>
                 @push('scripts')
-                <script>
-                    document.addEventListener('DOMContentLoaded', function (){
-                        const alertsDropdown = document.getElementById('alertsDropdown');
-                        if(alertsToggle){
-                            $(alertsDropdown).on('show.bs.dropdown', function (){
-                                const badge = document.getElementById('alertsBadge')
-                                if(badge){
-                                    fetch('{{ route('notifications.markAsRead') }}', {
-                                        method: 'POST',
-                                        headers: {
-                                            'Content-Type' : 'application/json',
-                                            'X-CSRF-TOKEN' : document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
-                                        },
-                                    }).then(function (){
-                                        badge.remove();
-                                    })
-                                }
-                            })
-                        }
-                    })
-                </script>
-                @endpush
+                    <script>
+                        document.addEventListener('DOMContentLoaded', function () {
+                            const alertsToggle = document.getElementById('alertsDropdown');
+                            if (alertsToggle) {
+                                $(alertsToggle).on('show.bs.dropdown', function () {
+                                    const badge = document.getElementById('alertsBadge');
+                                    if (badge) {
+                                        fetch('{{ route('notifications.markAsRead') }}', {
+                                            method: 'POST',
+                                            headers: {
+                                                'Content-Type': 'application/json',
+                                                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+                                            },
+                                        }).then(function () {
+                                            badge.remove();
+                                        });
+                                    }
+                                });
+                            }
+                        });
+                    </script>
+                    @endpush
