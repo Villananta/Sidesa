@@ -237,7 +237,7 @@
                         document.addEventListener('DOMContentLoaded', function () {
                             const alertsToggle = document.getElementById('alertsDropdown');
                             if (alertsToggle) {
-                                $(alertsToggle).on('show.bs.dropdown', function () {
+                                $(alertsToggle).closest('.dropdown').on('show.bs.dropdown', function () {
                                     const badge = document.getElementById('alertsBadge');
                                     if (badge) {
                                         fetch('{{ route('notifications.markAsRead') }}', {
@@ -246,8 +246,10 @@
                                                 'Content-Type': 'application/json',
                                                 'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
                                             },
-                                        }).then(function () {
-                                            badge.remove();
+                                        }).then(function (response) {
+                                            if (response.ok) {
+                                                badge.remove();
+                                            }
                                         });
                                     }
                                 });
