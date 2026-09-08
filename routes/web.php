@@ -3,6 +3,7 @@
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ComplaintController;
+use App\Http\Controllers\NotificationController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ResidentController;
 
@@ -40,3 +41,7 @@ Route::post('/complaint', [ComplaintController::class, 'store'])->name('complain
 Route::put('/complaint/{id}', [ComplaintController::class, 'update'])->name('complaint.update')->middleware('role:User');
 Route::delete('/complaint/{id}', [ComplaintController::class, 'destroy'])->name('complaint.destroy')->middleware('role:User');
 Route::patch('/complaint/{id}/status', [ComplaintController::class, 'update_status'])->middleware('role:Admin');
+
+Route::post('/notifications/mark-as-read', [NotificationController::class, 'markAsRead'])->name('notifications.markAsRead')->middleware('role:Admin,User'); 
+
+

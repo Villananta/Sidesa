@@ -47,7 +47,6 @@
                         </li>
 
                         <!-- Nav Item - Alerts -->
-                        <li class="nav-item dropdown no-arrow mx-1">
         
                             @php
                                 $unreadNotifications = auth()->check()
@@ -64,7 +63,7 @@
                                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <i class="fas fa-bell fa-fw"></i>
                                     @if ($unreadCount > 0)
-                                        <span class="badge badge-danger badge-counter">{{ $unreadCount }}</span>
+                                        <span class="badge badge-danger badge-counter" id="alertsBadge">{{ $unreadCount }}</span>
                                     @endif
                                 </a>
                                 <!-- Dropdown - Alerts -->
@@ -231,5 +230,28 @@
                         @endguest
 
                     </ul>
-
+                    
                 </nav>
+                @push('scripts')
+                <script>
+                    document.addEventListener('DOMContentLoaded', function (){
+                        const alertsDropdown = document.getElementById('alertsDropdown');
+                        if(alertsToggle){
+                            $(alertsDropdown).on('show.bs.dropdown', function (){
+                                const badge = document.getElementById('alertsBadge')
+                                if(badge){
+                                    fetch('{{ route('notifications.markAsRead') }}', {
+                                        method: 'POST',
+                                        headers: {
+                                            'Content-Type' : 'application/json',
+                                            'X-CSRF-TOKEN' : document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+                                        },
+                                    }).then(function (){
+                                        badge.remove();
+                                    })
+                                }
+                            })
+                        }
+                    })
+                </script>
+                @endpush
