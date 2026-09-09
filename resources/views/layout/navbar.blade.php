@@ -80,7 +80,7 @@
                                                 </div>
                                             </div>
                                             <div>
-                                                <div class="small text-gray-500">{{ $item->created_at->diffForHumans() }}</div>
+                                                <div class="small text-gray-500">{{ $item->created_at->timezone('Asia/Jakarta')->diffForHumans() }}</div>
                                                 <span class="font-weight-bold">{{ $item->data['message'] ?? 'Notifikasi baru' }}</span>
                                             </div>
                                         </a>

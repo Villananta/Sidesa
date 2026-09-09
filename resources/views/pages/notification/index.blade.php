@@ -39,7 +39,7 @@
                                     <tr>
                                         <td>{{ $loop->iteration + $notifications->firstitem() - 1 }}</td>
                                         <td>{{ $item->data['message'] ?? 'Notifikasi baru' }}</td>
-                                        <td>{{ $item->created_at->format('d-m-Y H:i') }}</td>
+                                        <td>{{ $item->created_at->timezone('Asia/Jakarta')->format('d-m-Y H:i') }}</td>
                                         <td>
                                             @if ($item->read_at)
                                                 <span class="badge badge-secondary">Sudah dibaca</span>
