@@ -3,6 +3,7 @@
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ComplaintController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\NotificationController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ResidentController;
@@ -15,9 +16,7 @@ Route::get('/register', [AuthController::class,'registerView']);
 Route::post('/register', [AuthController::class,'register']);
  
 
-Route::get('/dashboard', function () {
-    return view('pages.dashboard');
-})->middleware('role:Admin,User');
+Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard')->middleware('role:Admin,User');
 Route::get('/resident', [ResidentController::class, 'index'])->name('resident.index')->middleware('role:Admin');
 Route::get('/resident/create', [ResidentController::class, 'create'])->name('resident.create')->middleware('role:Admin');
 Route::post('/resident', [ResidentController::class, 'store'])->name('resident.store')->middleware('role:Admin');

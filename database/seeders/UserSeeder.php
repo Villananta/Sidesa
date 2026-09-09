@@ -22,7 +22,7 @@ class UserSeeder extends Seeder
             'role_id' => '1',
         ]);
 
-        User::create([
+        $wiwi = User::create([
             'name' => 'wiwi',
             'email' => 'wiwi@gmail.com',
             'password' => bcrypt('wiwi123'),
@@ -37,7 +37,8 @@ class UserSeeder extends Seeder
             'place_of_birth'=> 'oslo',
             'address'=> 'oslo',
             'marital_status'=> 'single',
-            'phone'=> '081234567890'
+            'phone'=> '081234567890',
+            'user_id'=> $wiwi->id,
         ]);
     }
 }
