@@ -73,7 +73,7 @@
                                         Notifikasi
                                     </h6>
                                     @forelse ($unreadNotifications as $item)
-                                        <a class="dropdown-item d-flex align-items-center" href="#">
+                                        <a class="dropdown-item d-flex align-items-center" href="{{ route('notifications.index') }}">
                                             <div class="mr-3">
                                                 <div class="icon-circle bg-primary">
                                                     <i class="fas fa-file-alt text-white"></i>
@@ -85,9 +85,9 @@
                                             </div>
                                         </a>
                                     @empty
-                                        <a class="dropdown-item text-center small text-gray-500" href="#">Tidak ada notifikasi baru</a>
+                                        <a class="dropdown-item text-center small text-gray-500" href="{{ route('notifications.index') }}">Tidak ada notifikasi baru</a>
                                     @endforelse
-                                    <a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>
+                                    <a class="dropdown-item text-center small text-gray-500" href="{{ route('notifications.index') }}">Lihat Semua Notifikasi</a>
                                 </div>
                             </li>
 
@@ -232,28 +232,3 @@
                     </ul>
                     
                 </nav>
-                @push('scripts')
-                    <script>
-                        document.addEventListener('DOMContentLoaded', function () {
-                            const alertsToggle = document.getElementById('alertsDropdown');
-                            if (alertsToggle) {
-                                $(alertsToggle).closest('.dropdown').on('show.bs.dropdown', function () {
-                                    const badge = document.getElementById('alertsBadge');
-                                    if (badge) {
-                                        fetch('{{ route('notifications.markAsRead') }}', {
-                                            method: 'POST',
-                                            headers: {
-                                                'Content-Type': 'application/json',
-                                                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
-                                            },
-                                        }).then(function (response) {
-                                            if (response.ok) {
-                                                badge.remove();
-                                            }
-                                        });
-                                    }
-                                });
-                            }
-                        });
-                    </script>
-                    @endpush

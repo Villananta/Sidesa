@@ -42,6 +42,7 @@ Route::put('/complaint/{id}', [ComplaintController::class, 'update'])->name('com
 Route::delete('/complaint/{id}', [ComplaintController::class, 'destroy'])->name('complaint.destroy')->middleware('role:User');
 Route::patch('/complaint/{id}/status', [ComplaintController::class, 'update_status'])->middleware('role:Admin');
 
-Route::post('/notifications/mark-as-read', [NotificationController::class, 'markAsRead'])->name('notifications.markAsRead')->middleware('role:Admin,User'); 
+Route::get('/notifications', [NotificationController::class, 'index'])->name('notifications.index')->middleware('role:Admin,User');
+Route::post('/notifications/{id}/mark-as-read', [NotificationController::class, 'markAsRead'])->name('notifications.markAsRead')->middleware('role:Admin,User'); 
 
 

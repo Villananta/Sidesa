@@ -6,10 +6,18 @@ use Illuminate\Http\Request;
 
 class NotificationController extends Controller
 {
-    public function markAsRead(Request $request)
+    public function index()
     {
-        auth()->user()->unreadNotifications->markAsRead();
+        $notifications = auth()->user()->notifications()->latest()->paginate(10);
 
-        return response()->json(['success' => true]);
+        return view('pages.notification.index', compact('notifications'));
+    }
+
+    public function markAsRead($id)
+    {
+        $notification = auth()->user()->notifications()->findOrFail($id);
+        $notification->markAsRead();
+
+        return back()->with('success', 'Notifikasi ditandai sudah dibaca.');
     }
 }

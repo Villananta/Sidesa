@@ -1,0 +1,33 @@
+# Dependencies (Ukuran sangat besar)
+/vendor/
+/node_modules/
+
+# Cache dan Session Laravel
+/storage/logs/
+/storage/framework/cache/
+/storage/framework/sessions/
+/storage/framework/views/
+/bootstrap/cache/
+
+# File Sensitif & Sistem
+.env
+.env.*
+/.git/
+/.idea/
+/.vscode/
+
+# Build Assets & Storage Publik
+/public/build/
+/public/storage/
+/public/hot
+
+# File Database, Log, & Media
+*.sqlite
+*.sql
+*.log
+*.png
+*.jpg
+*.jpeg
+*.svg
+*.pdf
+*.zip
